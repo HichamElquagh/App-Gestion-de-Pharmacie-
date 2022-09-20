@@ -22,22 +22,19 @@ typedef struct {
     float moyenprix=0;
     float maxprix=0;
     float minprix=0;
-
-    int code;
-    int quantite11;
+    //
     int conteur=0;
-    char stock[100];
     int nombredachat = 0;
 
    // les fonctions
-    /*ajouterproduit();
-    rechercheproduit();
-    afficher();
-    achatproduit();
-    etatdestock();
-    allimenter();
-    supprimerstock();
-    statistiquevente();*/
+    void ajouterproduit();
+    void rechercheproduit();
+    void afficher();
+    void achatproduit();
+    void etatdestock();
+    void allimenter();
+    void supprimerstock();
+    void statistiquevente();
 
 int main() {
     designmenu ();
@@ -150,7 +147,7 @@ void ajouterproduit(){
 void afficher(){
     int isprixnom;
     printf("\t-------------------------------------------------------------------------------------------\n");
-    printf("\t|| NOM DE PRODUIT            || SON CODE ||          LA QUANTITE ||              LE PRIX     ||          LE  TTC \n");
+    printf("\t|| NOM DE PRODUIT    || SON CODE ||      LA QUANTITE ||      LE PRIX     ||          LE  TTC \n");
     printf("\t---------------------------------------------------------------------------------------------\n");
     for(int i=0 ; i<conteur ;i++){
        printf("\t ||    %s            ||        %d  ||        %d    ||     %.2f DH ||      %.2f DH  \n",elments[i].nomproduit,elments[i].code,elments[i].quantiteproduit,elments[i].prix,elments[i].prix+(elments[i].prix*0.15));
@@ -170,8 +167,6 @@ void afficher(){
 
 // tri par nom
 void triparnom(){
-
- //saisirproduit changer[1];
     int i,j;
     for( i=0;i<conteur;i++){
         for( j=i+1;j<conteur ;j++){
@@ -207,9 +202,9 @@ void triparnombre(){
             }
         }
     }
-    printf("\t--------------------------------------------------------------------------------------------------------------------\n");
-    printf("\t|| NOM DE PRODUIT            ||           SON CODE ||          LA QUANTITE ||          LE PRIX ||      LE PRIX TTC   \n");
-    printf("\t--------------------------------------------------------------------------------------------------------------------\n");
+    printf("\t----------------------------------------------------------------------------------------------\n");
+    printf("\t|| NOM DE PRODUIT    ||    SON CODE ||      LA QUANTITE    ||      LE PRIX ||      LE PRIX TTC   \n");
+    printf("\t------------------------------------------------------------------------------------------------\n");
     for( i=0;i<conteur;i++){
         printf("\t %s            ||        %d  ||        %d    ||     %.2f ||        %.2f   ||   \n",elments[i].nomproduit,elments[i].code,elments[i].quantiteproduit,elments[i].prix,elments[i].prix+(elments[i].prix*0.15));
         printf("\t-------------------------------------------------------------------\n");
@@ -224,22 +219,26 @@ void triparnombre(){
 
 // cette fonction pour l'achat de produit
 void achatproduit(){
-    int quantite;
+    int quantite,code;
     int n,i;
-    hna:
+    laaa :
     printf ("\t veuillez entrer la quantite :  ");
     scanf("%d",&quantite);
     printf ("\n");
     printf ("\t veuillez entrer le code de produit : ");
     scanf("%d",&code);
-        for (int i=0;i<conteur;i++){
-            if (elments[i].quantiteproduit<quantite){
-                printf("\t quantite introvable \n \n ");
-                goto hna;
-            }
+    for (int i=0;i<conteur;i++){
+        if(code == elments[i].code){
+        if(elments[i].quantiteproduit<quantite){
+            printf("quantite introuvable");
+            goto laaa;
+         }
+         }
+     }
+            for (int i=0;i<conteur;i++){
                 if(code == elments[i].code){
                     elments[i].quantiteproduit = elments[i].quantiteproduit-quantite;
-                    float totalpye = elments[i].prix*quantite;
+                    float totalpye = ((elments[i].prix*0.15)+elments[i].prix)*quantite;
                     totalprix=(totalpye)+totalprix;
                     if (totalpye > maxprix )
                         maxprix=totalpye;
@@ -251,6 +250,7 @@ void achatproduit(){
                }
 
 
+
         }
     printf("\n");
     printf("\t voila votre achat est valider \n ");
@@ -260,10 +260,13 @@ void achatproduit(){
     system("cls");
     designmenu ();
     affichemenu();
+
 }
+
 // cette fonction pour rechercher le produits
 void rechercheproduit(){
     int choixrecherche,i;
+    int code,quantite11;
     printf("\t 1 : chercher un produit par code : \n");
     printf("\t 2 : chercher un produit par quantite : \n");
     printf("\t entrer un nombre : ");
@@ -314,7 +317,7 @@ void etatdestock(){
         for(int i=0;i<conteur;i++){
             if (elments[i].quantiteproduit<=3){
                 printf("\t %s            ||        %d  ||        %d    ||     %.2f DH||     \n",elments[i].nomproduit,elments[i].code,elments[i].quantiteproduit,elments[i].prix);
-                printf("\t----------------------------------------------------------------------------\n");
+                printf("\t-------------------------------------------------------------\n");
                 }
         }
     printf ("\t cliquer sur entrer pour retour au menu :[-] \n ");
@@ -351,12 +354,13 @@ supprimerstock(){
     printf("\t veuillez entrer le code de produit : ");
     scanf("%d",&supcode);
     for(int i=0;i<conteur;i++){
-        if (supcode=elments[i].code){
-            for(int j=i;i<conteur;i++){
+        if (supcode==elments[i].code){
+            for(int j=i;j<conteur;j++){
                 elments[j]=elments[j+1];
             }
+            conteur--;
         }
-        conteur--;
+
     }
     printf("\t voila le produit est supprimer \n");
     printf ("\t cliquer sur entrer pour retour au menu :[-] \n ");
