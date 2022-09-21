@@ -59,8 +59,8 @@ void affichemenu ()  {
     do{
         printf("\t 1 : Ajouter les produits  \n ");
         printf("\t 2 : Rechercher    \n");
-        printf("\t 3 : pour l'affichage  \n");
-        printf("\t 4 : pour achat \n ");
+        printf("\t 3 : l'affichage  \n");
+        printf("\t 4 : achat \n ");
         printf("\t 5 : Gestion de stock \n ");
         printf("\t 6 : alimenter le stock \n ");
         printf("\t 7 : Supprimer \n ");
@@ -95,7 +95,7 @@ void affichemenu ()  {
                     statistiquevente();
                     break;
                     default :
-                    printf("\t veuillez choisir un nombre entre 1 et 4 : \n");
+                    printf("\t veuillez choisir un nombre entre 1 et 8 : \n");
                     printf("\n");
                     break;
             }
@@ -267,6 +267,7 @@ void achatproduit(){
     int quantite,code;
     int n,i;
     time_t t = time(NULL);
+    bool sr = false ;
 
     laaa :
     printf ("\t veuillez entrer la quantite :  ");
@@ -275,12 +276,13 @@ void achatproduit(){
     printf ("\t veuillez entrer le code de produit : ");
     scanf("%d",&code);
     for (int i=0;i<conteur;i++){
-        if(code == elments[i].code){
-            if(elments[i].quantiteproduit<quantite){
-                printf("quantite introuvable");
-                goto laaa;
+            if(elments[i].quantiteproduit>=quantite){
+                    sr = true;
             }
-        }
+    }
+    if(sr==false){
+        printf("\t quantite introuvable \n");
+        goto laaa;
     }
     for (int i=0;i<conteur;i++){
         if(code == elments[i].code){
@@ -332,7 +334,7 @@ void etatdestock(){
 void allimenter() {
     int i;
     int allquantite,allcode;
-    bool found = false;
+    bool trouver = false;
     printf("\t veuillez entrer la quantiter ajouter  : ");
     scanf("%d",&allquantite);
     ci :
@@ -340,9 +342,9 @@ void allimenter() {
     scanf("%d",&allcode);
     for(i=0;i<conteur;i++){
         if(allcode == elments[i].code)
-            found = true;
+            trouver = true;
     }
-    if(found == false)
+    if(trouver == false)
         goto ci;
     for( i=0 ; i<conteur ; i++){
         if(allcode==elments[i].code)
