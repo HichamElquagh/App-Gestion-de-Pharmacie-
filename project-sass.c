@@ -312,13 +312,13 @@ void achatproduit(){
 
 // 5 cette fonction pour etat de stock
 void etatdestock(){
-     printf("\t--------------------------------------------------------------\n");
-     printf("\t|| NOM DE PRODUIT || SON CODE || LA QUANTITE || LE PRIX ||   \n");
-     printf("\t------------------------------------------------------------\n");
+    printf("\t----------------------------------------------------------------------------------------\n");
+    printf("\t|| NOM DE PRODUIT    || SON CODE     || LA QUANTITE     || LE PRIX        ||  LE  TTC ||   \n");
+    printf("\t----------------------------------------------------------------------------------------\n");
         for(int i=0;i<conteur;i++){
             if (elments[i].quantiteproduit<3){
-                printf("\t %s            ||        %d  ||        %d    ||     %.2f DH||     \n",elments[i].nomproduit,elments[i].code,elments[i].quantiteproduit,elments[i].prix);
-                printf("\t-------------------------------------------------------------\n");
+                printf("\t%s               || %d               || %d               || %.2f DH      || %.2f DH  ||   \n",elments[i].nomproduit,elments[i].code,elments[i].quantiteproduit,elments[i].prix,(elments[i].prix*0.15)+elments[i].prix);
+                printf("\t----------------------------------------------------------------------------------------\n");
                 }
         }
     printf ("\t cliquer sur entrer pour retour au menu :[-] \n ");
