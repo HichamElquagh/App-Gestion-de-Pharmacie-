@@ -284,8 +284,8 @@ void achatproduit(){
     }
     for (int i=0;i<conteur;i++){
         if(code == elments[i].code){
-            printf("\t la date d'achat est : %s",ctime(&t));
             printf("\n");
+            printf("\t la date d'achat est : %s",ctime(&t));
             strcpy(elments[i].date,ctime(&t));
             elments[i].quantiteproduit = elments[i].quantiteproduit-quantite;
             float totalpye = ((elments[i].prix*0.15)+elments[i].prix)*quantite;
@@ -388,7 +388,7 @@ statistiquevente(){
     for(int i=0 ; i<n ;i++){
         printf("\tLA DATE d'achat est  : \t %s ",elments[i].date);
         printf("\n");
-        printf("\t||  %.2f DH             ||  %.2f DH          ||  %.2f DH           ||  %.2f DH        || \n",totalprix,moyenne,maxprix,minprix);
+        printf("\t||  %.2f DH             ||  %.2f DH          ||  %.2f DH           ||  %.2f DH     || \n",totalprix,moyenne,maxprix,minprix);
         printf("\t----------------------------------------------------------------------------------------\n");
     }
     printf ("\t cliquer sur entrer pour retour au menu :[-] \n ");
